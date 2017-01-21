@@ -2,6 +2,25 @@
 <html lang="en">
     <body>
         <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        <section class="row">
+        <textarea style="height: 500px; width: 500px;" id="pad">
+            
+            # Realtime Markdown Editor
+
+### What is this?
+
+Type your markdown into the box on the left and immediately see if on the box on the right. If you send a friend a link to a pad URL (other than the home page) you both can edit the document at the same time!
+
+### How to use this?
+### How to use this?
+            </textarea>
+            
+        <div style="height: 500px; width: 500px" id="markdown"></div>
+        </section>
+        <div style="height:50px; width: 50px;" id="container"></div>
+
+        
         <div id="container">
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -9,5 +28,9 @@
         <script src="react-dom/dist/react-dom.js"></script>
         <script src="bootstrap/dist/js/bootstrap.min.js" ></script>
         <script src="index.js" ></script>
+        
+        <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+        <script src="script.js"></script>
+        
     </body>
 </html>
