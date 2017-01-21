@@ -25,6 +25,7 @@ router.post ('/parse/', function (req, res) {
     let jsonOutput = {data: parsedTextInMD};
     console.log( 'parse/ Response:' );
     console.log( jsonOutput );
+    console.log();
     res.json( jsonOutput );
 });
 
