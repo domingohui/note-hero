@@ -20,7 +20,8 @@ class Input extends React.Component {
             }, TYPING_TIME_OUT);
     }
 
-    handleTyping () {
+    handleTyping (event) {
+        this.setState ({ value: event.target.value } );
         // Reset timeout timer 
         this.stoppedTypingFor = 0;
         this.isTyping(true);
@@ -28,16 +29,28 @@ class Input extends React.Component {
     }
 
     sendInputToServer () {
-        // AJAX?
-        if ( !this.sentData )
-            alert("sending text to server");
+        // If new data hasn't been sent to server
+        if ( !this.sentData ) {
+            console.log('sending text to server: ' + this.state.value);
+            $.post('/parse/', 
+                {
+                    data: this.state.value
+                },
+                this.onMdSourceFromServer);
+        }
+        // else do nothing
         this.sentData = true;
+    }
+
+    onMdSourceFromServer (data) {
+        console.log ('Response data from server: ' + data );
     }
 
     render () {
         // USE ARROW FUNCTIONS to bind this
         return (
-            <input className="col-sm-6 well" defaultValue={this.state.value} id="pad" onChange={()=>{this.handleTyping()}} />
+            <input className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
+            onChange={ (event)=>{this.handleTyping(event)}} />
         );
     }
 }
