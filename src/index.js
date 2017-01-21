@@ -61,7 +61,7 @@ class Container extends React.Component {
     render() {
         return (
             <div className="row">
-            <Input isTyping={this.isTyping} />
+            <Input isTyping={(isTyping) => {this.isTyping(isTyping)}} />
             <Output />
             <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
             </div>
