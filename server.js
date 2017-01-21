@@ -1,3 +1,4 @@
+let MarkDownParser = require('./lib/markdown_generator');
 let express = require('express');
 let app = express();
 let body_parser = require('body-parser');
@@ -18,8 +19,13 @@ router.get('/', function(req, res) {
 });
 
 router.post ('/parse/', function (req, res) {
-    console.log ("Getting a POST request: ");
+    console.log( 'parse/ POST request:' );
     console.log( req.body);
+    let parsedTextInMD = MarkDownParser.getMdSourceCode (req.body.data);
+    let jsonOutput = {data: parsedTextInMD};
+    console.log( 'parse/ Response:' );
+    console.log( jsonOutput );
+    res.json( jsonOutput );
 });
 
 app.use('/', router);

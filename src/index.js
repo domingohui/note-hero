@@ -48,7 +48,8 @@ class Input extends React.Component {
     }
 
     onMdSourceFromServer (data) {
-        console.log ('Response data from server: ' + data );
+        console.log ('Response data from server: ');
+        console.log (data.data );
         // Injecet MD source to MD renderer
     }
 
@@ -64,7 +65,7 @@ class Input extends React.Component {
 
 class Output extends React.Component {
     render () {
-        return (<input className="col-sm-6 well" defaultValue="markdown" readOnly />);
+        return (<input className="col-sm-6 well" defaultValue="markdown" readnly />);
     }
 }
 
