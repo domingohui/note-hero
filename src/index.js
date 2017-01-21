@@ -5,30 +5,33 @@ const TYPING_TIME_OUT = 500;
 class Input extends React.Component {
     constructor (props) {
         super(props);
-        this.toggleTyping = props.toggleTyping;
+        this.isTyping = props.isTyping;
         this.state = {value:"##MD EDITOR. Type here "};
+        this.sentData = false;
         this.stoppedTypingFor = 0; // milliseconds
         setInterval ( 
             () => {
                 if ( this.stoppedTypingFor >= 3000 ) {
-                    this.toggleTyping (false);
+                    this.isTyping (false);
                     this.sendInputToServer ();
                 }
                 else
                     this.stoppedTypingFor += TYPING_TIME_OUT;
-                console.log(this.stoppedTypingFor);
             }, TYPING_TIME_OUT);
     }
 
     handleTyping () {
         // Reset timeout timer 
         this.stoppedTypingFor = 0;
-        this.toggleTyping(true);
+        this.isTyping(true);
+        this.sentData = false;
     }
 
     sendInputToServer () {
         // AJAX?
-        alert("sending text to server");
+        if ( !this.sentData )
+            alert("sending text to server");
+        this.sentData = true;
     }
 
     render () {
@@ -51,19 +54,14 @@ class Container extends React.Component {
         this.state = {typing: false};
     }
 
-    toggleTyping(isTyping) {
-        if ( isTyping )
-            console.log("is typing");
-        else
-            console.log("not typing");
+    isTyping(isTyping) {
         this.setState ({typing: isTyping});
-
     }
 
     render() {
         return (
             <div className="row">
-            <Input toggleTyping={this.toggleTyping} />
+            <Input isTyping={this.isTyping} />
             <Output />
             <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
             </div>
