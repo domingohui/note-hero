@@ -11,17 +11,22 @@ class Input extends React.Component {
         this.stoppedTypingFor = 0; // milliseconds
         setInterval ( 
             () => {
-                if ( this.stoppedTypingFor >= 3000 ) {
+                if ( this.stoppedTypingFor >= 2000 ) {
+                    // Idle for 2 seconds
                     this.isTyping (false);
                     this.sendInputToServer ();
                 }
                 else
                     this.stoppedTypingFor += TYPING_TIME_OUT;
             }, TYPING_TIME_OUT);
+
+        this.handleTyping = this.handleTyping.bind (this);
+        this.onMdSourceFromServer = this.onMdSourceFromServer.bind (this);
     }
 
     handleTyping (event) {
-        this.setState ({ value: event.target.value } );
+        // Update state with textbox input
+        this.setState ({ value: (event && event.target.value)? event.target.value : "" } );
         // Reset timeout timer 
         this.stoppedTypingFor = 0;
         this.isTyping(true);
@@ -31,7 +36,7 @@ class Input extends React.Component {
     sendInputToServer () {
         // If new data hasn't been sent to server
         if ( !this.sentData ) {
-            console.log('sending text to server: ' + this.state.value);
+            console.log('sending raw input to server: ' + this.state.value);
             $.post('/parse/', 
                 {
                     data: this.state.value
@@ -44,20 +49,22 @@ class Input extends React.Component {
 
     onMdSourceFromServer (data) {
         console.log ('Response data from server: ' + data );
+        // Injecet MD source to MD renderer
     }
 
     render () {
         // USE ARROW FUNCTIONS to bind this
         return (
-            <input className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
-            onChange={ (event)=>{this.handleTyping(event)}} />
+            <textarea className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
+            onChange={ this.handleTyping } >
+            </textarea>
         );
     }
 }
 
 class Output extends React.Component {
     render () {
-        return (<input className="col-sm-6 well" defaultValue="markdown" />);
+        return (<input className="col-sm-6 well" defaultValue="markdown" readOnly />);
     }
 }
 
@@ -65,6 +72,8 @@ class Container extends React.Component {
     constructor () {
         super();
         this.state = {typing: false};
+
+        this.isTyping = this.isTyping.bind (this);
     }
 
     isTyping(isTyping) {
@@ -74,7 +83,7 @@ class Container extends React.Component {
     render() {
         return (
             <div className="row">
-            <Input isTyping={(isTyping) => {this.isTyping(isTyping)}} />
+            <Input isTyping={this.isTyping} />
             <Output />
             <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
             </div>
