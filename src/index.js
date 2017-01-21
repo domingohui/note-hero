@@ -1,11 +1,26 @@
 'use strict';
 
-function Welcome (props) {
-    return <h1>Hello, {props.name}</h1>;
+class Input extends React.Component {
+    render () {
+        return (<input className="col-sm-6 well" value="INPUT" />);
+    }
 }
 
-const element = <Welcome name="DOMINGO" />;
+class Output extends React.Component {
+    render () {
+        return (<input className="col-sm-6 well" value="output" />);
+    }
+}
 
-alert("HII");
+class Container extends React.Component {
+    render() {
+        return (
+            <div className="row">
+                <Input />
+                <Output />
+            </div>
+        );
+    }
+}
 
-ReactDOM.render ( element, document.getElementById ("container"));
+ReactDOM.render ( <Container />, document.getElementById ("container"));
