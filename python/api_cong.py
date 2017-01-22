@@ -19,11 +19,6 @@ input_texts = f.read()
 
 num_detect_langs = 1;
 
-batch_keyphrase_url = base_url + 'text/analytics/v2.0/keyPhrases'
-req = urllib2.Request(batch_keyphrase_url, input_texts, headers) 
-response = urllib2.urlopen(req)
-result = response.read()
-obj = json.loads(result)
 
 # Detect key phrases.
 batch_keyphrase_url = base_url + 'text/analytics/v2.0/keyPhrases'
@@ -34,12 +29,4 @@ obj = json.loads(result)
 for keyphrase_analysis in obj['documents']:
     print('Key phrases ' + str(keyphrase_analysis['id']) + ': ' + ', '.join(map(str,keyphrase_analysis['keyPhrases'])))
 
-# Detect sentiment.
-batch_sentiment_url = base_url + 'text/analytics/v2.0/sentiment'
-req = urllib2.Request(batch_sentiment_url, input_texts, headers) 
-response = urllib2.urlopen(req)
-result = response.read()
-obj = json.loads(result)
-for sentiment_analysis in obj['documents']:
-    print('Sentiment ' + str(sentiment_analysis['id']) + ' score: ' + str(sentiment_analysis['score']))
 
