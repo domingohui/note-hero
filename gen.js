@@ -17,7 +17,7 @@ fs.readFile('grocery', function (err, data) {
 var data = fs.readFileSync('grocery', String).toString();
 
 var res = data.split('\n');
-res[0] = "# ".concat(res[0].trim().frstCap());
+res[0] = "#  ".concat(res[0].trim().frstCap());
 
 var keyPhrs = 
 var tmp = [];
@@ -31,9 +31,9 @@ for (var i = 1; i < res.length; i++) {
 	if (res[i].length > 0) {
 		for (var i = tmp.length - 1; i >= 0; i--) {
 			if (res[i].includes(tmp[i])) {
-				res[i] = i.toString().concat(". ", res[i].trim().frstCap()).replace("/".concat(tmp[i], "/g"), "**".concat(tmp[i],"**"));
+				res[i] = i.toString().concat(".  ", res[i].trim().frstCap()).replace("/".concat(tmp[i], "/g"), " ** ".concat(tmp[i]," ** "));
 			} else{
-				res[i] = i.toString().concat(". ", res[i].trim().frstCap());
+				res[i] = i.toString().concat(".  ", res[i].trim().frstCap());
 				console.log(i);
 			}
 		}
