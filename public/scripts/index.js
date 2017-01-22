@@ -5,9 +5,19 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+
 var Markdown = require('react-markdown');
 import Style from '../assets/css/styles.css';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
+const Markdown = require('react-markdown');
+
+
+//import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
+import Style from './assets/css/styles.css';
+import { Button, Card, Row, Col } from 'react-materialize';
+
 
 const $ = require('jquery');
 
@@ -51,15 +61,26 @@ class Input extends React.Component {
     }
 
     render () {
+        const divStyle = {
+            height: "500px"
+        };
         return (           
+         
+            <div className="row">
+            <form className="col s12">
+                <div className="row">
+                <div className="input-field col s12">
+                <textarea id="textarea1" className="materialize-textarea"></textarea>
+          <label for="textarea1">Textarea</label>
+        </div>
+      </div>
+    </form>
+  </div>
+//            <textarea 
+//            className="col-sm-6 well" style={divStyle} defaultValue={this.state.value} id="pad"  
+//            onChange={ this.handleTyping } >
+//            </textarea>
             
-            
-            <textarea 
-            
-            
-            className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
-            onChange={ this.handleTyping } >
-            </textarea>
           
         );
     }
@@ -72,9 +93,13 @@ class Source extends React.Component {
     }
 
     render () {
-        return (
-            <textarea value={this.props.source} onChange={this.didEditSource.bind(this)} />
-        );
+        
+        
+        
+        return <div >
+            
+            
+            <textarea value={this.props.source} onChange={this.didEditSource.bind(this)} /> </div>;
     }
 }
 
@@ -120,8 +145,21 @@ class Container extends React.Component {
     }
 
     render() {
+        
+        const styleTrials = {
+            marginTop:"100px"
+        }
         return (
+
             <div className="row">
+
+            
+            <div className="row" style={styleTrials}>
+
+//            {this.props.children}
+            <Input updateRawInput={this.rawInputDidUpdate}/>
+
+
             <Input updateRawInput={this.rawInputDidUpdate} />
             <Markdown source={this.state.markdownSource} />
             <Source source={this.state.markdownSource} didEditSource={this.didSourceChange} />
