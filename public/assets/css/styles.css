@@ -3,9 +3,10 @@
     height: 100%;
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
-    
+    background-color: blue;
 }
 
 #pad {
     background: 
+    opacity: 0.5;
 }
