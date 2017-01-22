@@ -4,21 +4,25 @@
   "repository": "https://github.com/domingohui/note-hero",
   "main": "server.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src -d lib"
+    "build": "./node_modules/.bin/babel public/scripts -d public/lib",
+    "start": "./node_modules/.bin/webpack --config webpack.config.js"
   },
   "dependencies": {
+    "babel-loader": "^6.2.1",
     "babel-core": "^6.17.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "express": "^4.14.0",
     "body-parser": "^1.16.0",
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
+    "json-loader": "0.5.4",
     "jquery": "^3.1.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "bootstrap": "^3.3.7",
-    "react-markdown": "^2.4.4"
+    "react-markdown": "^2.4.4",
+    "webpack": "1.14.0"
   },
   "devDependencies": {
-      "babel-cli": "^6.0.0"
+    "babel-cli": "^6.0.0"
   }
 }

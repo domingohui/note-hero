@@ -1,19 +1,25 @@
 'use strict';
 
+// BIND THIS TO FUNCTIONS
+
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Markdown = require('react-markdown');
+const $ = require('jquery');
+
 const TYPING_TIME_OUT = 500;
 
 class Input extends React.Component {
     constructor (props) {
         super(props);
-        this.isTyping = props.isTyping;
+        this.updateRawInput = props.updateRawInput;
         this.state = {value:"##MD EDITOR. Type here "};
         this.sentData = false;
         this.stoppedTypingFor = 0; // milliseconds
         setInterval ( 
             () => {
                 if ( this.stoppedTypingFor >= 2000 ) {
-                    // Idle for 2 seconds
-                    this.isTyping (false);
+                    // Idle for 2 seconds - stopped typing
                     this.sendInputToServer ();
                 }
                 else
@@ -21,40 +27,26 @@ class Input extends React.Component {
             }, TYPING_TIME_OUT);
 
         this.handleTyping = this.handleTyping.bind (this);
-        this.onMdSourceFromServer = this.onMdSourceFromServer.bind (this);
     }
 
     handleTyping (event) {
         // Update state with textbox input
-        this.setState ({ value: (event && event.target.value)? event.target.value : "" } );
+        this.setState ({ value: (event && event.target.value!=null)? event.target.value : "" } );
         // Reset timeout timer 
         this.stoppedTypingFor = 0;
-        this.isTyping(true);
         this.sentData = false;
     }
 
     sendInputToServer () {
         // If new data hasn't been sent to server
         if ( !this.sentData ) {
-            console.log('sending raw input to server: ' + this.state.value);
-            $.post('/parse/', 
-                {
-                    data: this.state.value
-                },
-                this.onMdSourceFromServer);
+            this.updateRawInput ( this.state.value );
+            this.sentData = true;
         }
-        // else do nothing
-        this.sentData = true;
-    }
-
-    onMdSourceFromServer (data) {
-        console.log ('Response data from server: ');
-        console.log (data.data );
-        // Injecet MD source to MD renderer
+        // else do nothing: either data's been sent OR still waiting for typing to stop
     }
 
     render () {
-        // USE ARROW FUNCTIONS to bind this
         return (
             <textarea className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
             onChange={ this.handleTyping } >
@@ -63,29 +55,58 @@ class Input extends React.Component {
     }
 }
 
-class Output extends React.Component {
+class Source extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            source: props.source
+        }
+    }
+
     render () {
-        return (<input className="col-sm-6 well" defaultValue="markdown" readnly />);
+        return (
+            <textarea>{this.state.source}</textarea>
+        );
     }
 }
 
 class Container extends React.Component {
     constructor () {
         super();
-        this.state = {typing: false};
-
-        this.isTyping = this.isTyping.bind (this);
+        // Bind this to fn's
+        this.renderMarkDown = this.renderMarkDown.bind(this);
+        this.rawInputDidUpdate = this.rawInputDidUpdate.bind(this);
+        this.state = {
+            markdownSource: ""
+        }
     }
 
-    isTyping(isTyping) {
-        this.setState ({typing: isTyping});
+    renderMarkDown (jsonData) {
+        // Pass data to child MD component to render text
+        if (jsonData && jsonData.data != null)
+            this.setState ({markdownSource: jsonData.data});
+        console.error("JSON data passed to Container from Input is null. Markdown source unchanged.");
+    }
+
+    rawInputDidUpdate (input) {
+        // Callback from Input after user stops typing
+
+        // Send raw input to server
+        console.log('sending raw input to server: ' + input);
+        $.post('/parse/', 
+            {
+                data: input
+            },
+            this.renderMarkDown);
+        // Then call renderMarkDown on success
     }
 
     render() {
         return (
             <div className="row">
-            <Input isTyping={this.isTyping} />
-            <Output />
+            <Input updateRawInput={this.rawInputDidUpdate}/>
+            <Markdown source={this.state.markdownSource} />
+            <Source source={this.state.markdownSource} />
             <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
             </div>
         );

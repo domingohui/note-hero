@@ -1,17 +1,20 @@
-let MarkDownParser = require('./lib/markdown_generator');
-let express = require('express');
-let app = express();
-let body_parser = require('body-parser');
-let router = express.Router();
-let PORT = 8000;
+const MarkDownParser = require('./public/lib/markdown_generator');
+const express = require('express');
+const app = express();
+const body_parser = require('body-parser');
+const router = express.Router();
+const PORT = 8000;
 
 // Set up middlewares for parsing UTF-8 encoding and JSON 
 app.use (body_parser.urlencoded({extended: true}));
 app.use (body_parser .json());
 
 // static paths for assets
-app.use(express.static('lib'));
-app.use(express.static('node_modules'));
+/*
+router.use(express.static(__dirname + '/lib'));
+router.use(express.static(__dirname + '/node_modules'));
+*/
+app.use(express.static(__dirname + '/public'));
 
 // HTTP requests
 router.get('/', function(req, res) {
