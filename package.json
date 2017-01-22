@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "./node_modules/.bin/babel public/scripts -d public/lib",
-    "start": "./node_modules/.bin/webpack --config webpack.config.js"
+    "pack": "./node_modules/.bin/webpack --config webpack.config.js"
   },
   "dependencies": {
     "babel-loader": "^6.2.1",

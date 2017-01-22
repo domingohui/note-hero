@@ -52,4 +52,4 @@ yarn.lock
 lib/
 
 # Vim
-.swp
+*.swp

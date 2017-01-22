@@ -133,11 +133,7 @@
 	    _createClass(Source, [{
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement(
-	                'textarea',
-	                null,
-	                this.state.source
-	            );
+	            return React.createElement('textarea', { value: this.state.source });
 	        }
 	    }]);
 
@@ -165,8 +161,7 @@
 	        key: 'renderMarkDown',
 	        value: function renderMarkDown(jsonData) {
 	            // Pass data to child MD component to render text
-	            if (jsonData && jsonData.data != null) this.setState({ markdownSource: jsonData.data });
-	            console.error("JSON data passed to Container from Input is null. Markdown source unchanged.");
+	            if (jsonData && jsonData.data != null) this.setState({ markdownSource: jsonData.data });else console.error("JSON data passed to Container from Input is null. Markdown source unchanged.");
 	        }
 	    }, {
 	        key: 'rawInputDidUpdate',
