@@ -679,7 +679,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"!!./../../../node_modules/css-loader/index.js!./styles.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var content = __webpack_require__(11);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(9)(content, {});
@@ -699,7 +699,20 @@
 	}
 
 /***/ },
-/* 11 */,
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".entireWindow {\n    width: 100%;\n    height: 100%;\n    background-image: url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../img/background.jpg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n    background-repeat: no-repeat;\n    background-color: blue;\n}\n\n#pad {\n    opacity: 0.5;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
