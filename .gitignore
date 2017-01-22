@@ -49,3 +49,5 @@ jspm_packages
 # Yarn
 yarn.lock
 lib/
+public/generated_fonts
+public/generated_libs
