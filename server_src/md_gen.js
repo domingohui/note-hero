@@ -20,6 +20,7 @@ var data = fs.readFileSync('grocery', String).toString();
 */
 
 function generateMdSource (data, keyPhrases) {
+    const flatten = arr => arr.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
     var res = data.split('\n');
     res[0] = frstCap("#  ".concat(res[0].trim()));
 
@@ -29,7 +30,7 @@ function generateMdSource (data, keyPhrases) {
         tmp[i] = keyPhrases.documents[i];
     }
     tmp = [].concat.apply([], tmp);
-    keyPhrs = tmp.reduce();
+    keyPhrs = flatten(tmp);
 
     for (let i = 1; i < res.length; i++) {
         if (res[i].length > 0) {
