@@ -65,7 +65,7 @@ class Source extends React.Component {
 
     render () {
         return (
-            <textarea value={this.state.source}></textarea>
+            <textarea value={this.state.source} />
         );
     }
 }
@@ -89,14 +89,14 @@ class Container extends React.Component {
             console.error("JSON data passed to Container from Input is null. Markdown source unchanged.");
     }
 
-    rawInputDidUpdate (input) {
+    rawInputDidUpdate (fromInput) {
         // Callback from Input after user stops typing
 
         // Send raw input to server
-        console.log('sending raw input to server: ' + input);
+        // console.log('sending raw input to server: ' + fromInput);
         $.post('/parse/', 
             {
-                data: input
+                data: fromInput
             },
             this.renderMarkDown);
         // Then call renderMarkDown on success
@@ -108,7 +108,6 @@ class Container extends React.Component {
             <Input updateRawInput={this.rawInputDidUpdate}/>
             <Markdown source={this.state.markdownSource} />
             <Source source={this.state.markdownSource} />
-            <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
             </div>
         );
     }

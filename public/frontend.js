@@ -165,13 +165,13 @@
 	        }
 	    }, {
 	        key: 'rawInputDidUpdate',
-	        value: function rawInputDidUpdate(input) {
+	        value: function rawInputDidUpdate(fromInput) {
 	            // Callback from Input after user stops typing
 
 	            // Send raw input to server
-	            console.log('sending raw input to server: ' + input);
+	            // console.log('sending raw input to server: ' + fromInput);
 	            $.post('/parse/', {
-	                data: input
+	                data: fromInput
 	            }, this.renderMarkDown);
 	            // Then call renderMarkDown on success
 	        }
@@ -180,20 +180,10 @@
 	        value: function render() {
 	            return React.createElement(
 	                'div',
-	                { className: 'entireWindow' },
-	                React.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
-	                    React.createElement(Markdown, { source: this.state.markdownSource }),
-	                    React.createElement(Source, { source: this.state.markdownSource }),
-	                    React.createElement(
-	                        'div',
-	                        { id: 'status' },
-	                        this.state.typing ? "" : "Not ",
-	                        ' typing'
-	                    )
-	                )
+	                { className: 'row' },
+	                React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
+	                React.createElement(Markdown, { source: this.state.markdownSource }),
+	                React.createElement(Source, { source: this.state.markdownSource })
 	            );
 	        }
 	    }]);
