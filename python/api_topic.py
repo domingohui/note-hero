@@ -56,17 +56,6 @@ def analyseTopic():
 			high_freq_items.append(item[0])
 		else: # freq decreased, break
 			break
-	'''
-	# *****************DEBUG*******************
-	debug_arr = []
-	for item in sorted_ana_dict:
-		if item[1] == 1:
-			break
-		else:
-			debug_arr.append(item)
-	print(sorted_ana_dict)
-	# *****************DEBUG*******************
-	'''
 	# check return condition
 	if len(high_freq_items)*2 > len(sorted_ana_dict):
 		print >> sys.stderr, "WARNING! Results might be no accurate!"
