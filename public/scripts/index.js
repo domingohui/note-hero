@@ -58,9 +58,14 @@ class Input extends React.Component {
 }
 
 class Source extends React.Component {
+    constructor (props) {
+        super(props);
+        this.didEditSource = props.didEditSource;
+    }
+
     render () {
         return (
-            <textarea value={this.props.source}></textarea>
+            <textarea value={this.props.source} onChange={this.didEditSource.bind(this)} />
         );
     }
 }
@@ -71,6 +76,7 @@ class Container extends React.Component {
         // Bind this to fn's
         this.renderMarkDown = this.renderMarkDown.bind(this);
         this.rawInputDidUpdate = this.rawInputDidUpdate.bind(this);
+        this.didSourceChange = this.didSourceChange.bind(this);
         this.state = {
             markdownSource: ""
         };
@@ -97,13 +103,20 @@ class Container extends React.Component {
         // Then call renderMarkDown on success
     }
 
+    didSourceChange ( eventFromSource ) {
+        // Callback from Source when edited to update state
+        if ( eventFromSource && eventFromSource.target.value != null )
+            this.setState ( {markdownSource: eventFromSource.target.value} );
+        else
+            console.error("MD sourc data passed to Container from Source is null. Markdown source unchanged.");
+    }
+
     render() {
-        console.log(this.state.markdownSource);
         return (
             <div className="row">
             <Input updateRawInput={this.rawInputDidUpdate} />
             <Markdown source={this.state.markdownSource} />
-            <Source source={this.state.markdownSource} />
+            <Source source={this.state.markdownSource} didEditSource={this.didSourceChange} />
             </div>
         );
     }

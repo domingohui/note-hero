@@ -130,16 +130,19 @@
 	var Source = function (_React$Component2) {
 	    _inherits(Source, _React$Component2);
 
-	    function Source() {
+	    function Source(props) {
 	        _classCallCheck(this, Source);
 
-	        return _possibleConstructorReturn(this, (Source.__proto__ || Object.getPrototypeOf(Source)).apply(this, arguments));
+	        var _this2 = _possibleConstructorReturn(this, (Source.__proto__ || Object.getPrototypeOf(Source)).call(this, props));
+
+	        _this2.didEditSource = props.didEditSource;
+	        return _this2;
 	    }
 
 	    _createClass(Source, [{
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement('textarea', { value: this.props.source });
+	            return React.createElement('textarea', { value: this.props.source, onChange: this.didEditSource.bind(this) });
 	        }
 	    }]);
 
@@ -157,6 +160,7 @@
 
 	        _this3.renderMarkDown = _this3.renderMarkDown.bind(_this3);
 	        _this3.rawInputDidUpdate = _this3.rawInputDidUpdate.bind(_this3);
+	        _this3.didSourceChange = _this3.didSourceChange.bind(_this3);
 	        _this3.state = {
 	            markdownSource: ""
 	        };
@@ -182,15 +186,20 @@
 	            // Then call renderMarkDown on success
 	        }
 	    }, {
+	        key: 'didSourceChange',
+	        value: function didSourceChange(eventFromSource) {
+	            // Callback from Source when edited to update state
+	            if (eventFromSource && eventFromSource.target.value != null) this.setState({ markdownSource: eventFromSource.target.value });else console.error("MD sourc data passed to Container from Source is null. Markdown source unchanged.");
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            console.log(this.state.markdownSource);
 	            return React.createElement(
 	                'div',
 	                { className: 'row' },
 	                React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
 	                React.createElement(Markdown, { source: this.state.markdownSource }),
-	                React.createElement(Source, { source: this.state.markdownSource })
+	                React.createElement(Source, { source: this.state.markdownSource, didEditSource: this.didSourceChange })
 	            );
 	        }
 	    }]);
