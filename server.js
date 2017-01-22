@@ -1,4 +1,4 @@
-const MarkDownParser = require('./public/lib/markdown_generator');
+const MarkDownParser = require('./server_src/markdown_generator');
 const express = require('express');
 const app = express();
 const body_parser = require('body-parser');

@@ -707,7 +707,7 @@
 
 
 	// module
-	exports.push([module.id, ".entireWindow {\n    width: 100%;\n    height: 100%;\n    background-image: url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../img/background.jpg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n    background-repeat: no-repeat;\n    background-color: blue;\n}\n\n#pad {\n    opacity: 0.5;\n}\n", ""]);
+	exports.push([module.id, ".entireWindow {\n    width: 100%;\n    height: 100%;\n    background-repeat: no-repeat;\n    background-color: blue;\n}\n\n#pad {\n    opacity: 0.5;\n}\n", ""]);
 
 	// exports
 
