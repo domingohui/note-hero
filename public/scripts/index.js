@@ -104,15 +104,11 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div className="entireWindow">
-            
             <div className="row">
             <Input updateRawInput={this.rawInputDidUpdate}/>
             <Markdown source={this.state.markdownSource} />
             <Source source={this.state.markdownSource} />
             <div id="status">{((this.state.typing)? "" : "Not ")} typing</div>
-            </div>
-        
             </div>
         );
     }
