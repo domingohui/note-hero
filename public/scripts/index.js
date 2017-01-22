@@ -4,7 +4,12 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+
 const Markdown = require('react-markdown');
+
+var Markdown = require('react-markdown');
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
 import Style from '../assets/css/styles.css';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
@@ -16,7 +21,7 @@ class Input extends React.Component {
     constructor (props) {
         super(props);
         this.updateRawInput = props.updateRawInput;
-        this.state = {value:"##MD EDITOR. Type here "};
+        this.state = {value:"## MD EDITOR. Type here "};
         this.sentData = false;
         this.stoppedTypingFor = 0; // milliseconds
         setInterval ( 
@@ -67,16 +72,12 @@ class Input extends React.Component {
 class Source extends React.Component {
     constructor (props) {
         super(props);
-        console.log ("Source code: ");
-        console.log(props.source);
-        this.state = {
-            source: props.source
-        }
+        this.didEditSource = props.didEditSource;
     }
 
     render () {
         return (
-            <textarea value={this.state.source} />
+            <textarea value={this.props.source} onChange={this.didEditSource.bind(this)} />
         );
     }
 }
@@ -87,9 +88,10 @@ class Container extends React.Component {
         // Bind this to fn's
         this.renderMarkDown = this.renderMarkDown.bind(this);
         this.rawInputDidUpdate = this.rawInputDidUpdate.bind(this);
+        this.didSourceChange = this.didSourceChange.bind(this);
         this.state = {
             markdownSource: ""
-        }
+        };
     }
 
     renderMarkDown (jsonData) {
@@ -113,109 +115,30 @@ class Container extends React.Component {
         // Then call renderMarkDown on success
     }
 
+    didSourceChange ( eventFromSource ) {
+        // Callback from Source when edited to update state
+        if ( eventFromSource && eventFromSource.target.value != null )
+            this.setState ( {markdownSource: eventFromSource.target.value} );
+        else
+            console.error("MD sourc data passed to Container from Source is null. Markdown source unchanged.");
+    }
+
     render() {
         return (
             
             
             <div className="row">
+
 //            {this.props.children}
             <Input updateRawInput={this.rawInputDidUpdate}/>
+
+            <Input updateRawInput={this.rawInputDidUpdate} />
+
             <Markdown source={this.state.markdownSource} />
-            <Source source={this.state.markdownSource} />
+            <Source source={this.state.markdownSource} didEditSource={this.didSourceChange} />
             </div>
         );
     }
 }
 
 ReactDOM.render ( <Container />, document.getElementById ("container"));
-
-/*
-window.onload = function() {
-    var converter = new showdown.Converter();
-    var pad = document.getElementById('pad');
-    var markdownArea = document.getElementById('markdown');   
-
-    var convertTextAreaToMarkdown = function(){
-        var markdownText = pad.value;
-        html = converter.makeHtml(markdownText);
-        markdownArea.innerHTML = html;
-    };
-
-    pad.addEventListener('input', convertTextAreaToMarkdown);
-
-    convertTextAreaToMarkdown();
-};
-*/
-
-
-
-
-//var React = require('react');
-//var Parser = require('commonmark').Parser;
-//var ReactRenderer = require('commonmark-react-renderer');
-//
-//var parser = new Parser();
-//var propTypes = React.PropTypes;
-//
-//var ReactMarkdown = React.createClass({
-//    displayName: 'ReactMarkdown',
-//
-//    propTypes: {
-//        className: propTypes.string,
-//        containerProps: propTypes.object,
-//        source: propTypes.string.isRequired,
-//        containerTagName: propTypes.string,
-//        childBefore: propTypes.object,
-//        childAfter: propTypes.object,
-//        sourcePos: propTypes.bool,
-//        escapeHtml: propTypes.bool,
-//        skipHtml: propTypes.bool,
-//        softBreak: propTypes.string,
-//        allowNode: propTypes.func,
-//        allowedTypes: propTypes.array,
-//        disallowedTypes: propTypes.array,
-//        transformLinkUri: propTypes.func,
-//        transformImageUri: propTypes.func,
-//        unwrapDisallowed: propTypes.bool,
-//        renderers: propTypes.object,
-//        walker: propTypes.func
-//    },
-//
-//    getDefaultProps: function() {
-//        return {
-//            containerTagName: 'div'
-//        };
-//    },
-//
-//    render: function() {
-//        var containerProps = this.props.containerProps || {};
-//        var renderer = new ReactRenderer(this.props);
-//        var ast = parser.parse(this.props.source || '');
-//
-//        if (this.props.walker) {
-//            var walker = ast.walker();
-//            var event;
-//
-//            while ((event = walker.next())) {
-//                this.props.walker.call(this, event, walker);
-//            }
-//        }
-//
-//        if (this.props.className) {
-//            containerProps.className = this.props.className;
-//        }
-//
-//        return React.createElement.apply(React,
-//            [this.props.containerTagName, containerProps, this.props.childBefore]
-//                .concat(renderer.render(ast).concat(
-//                    [this.props.childAfter]
-//                ))
-//        );
-//    }
-//});
-//
-//ReactMarkdown.types = ReactRenderer.types;
-//ReactMarkdown.renderers = ReactRenderer.renderers;
-//ReactMarkdown.uriTransformer = ReactRenderer.uriTransformer;
-//
-//module.exports = ReactMarkdown;
