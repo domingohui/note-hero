@@ -6,7 +6,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 const Markdown = require('react-markdown');
-//import Style from '../assets/css/styles.css';
+import Style from '../assets/css/styles.css';
 import { Button, Card, Row, Col } from 'react-materialize';
 
 const $ = require('jquery');

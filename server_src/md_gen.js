@@ -1,9 +1,9 @@
 module.exports.addMdTo = generateMdSource;
 
 // var fs = require("fs");
-String.prototype.frstCap = function() {
-    return this.charAt(0).toUpper().concat(this.slice(1));
-};
+function frstCap (str) {
+    return str.charAt(0).toUpperCase().concat(str.slice(1));
+}
 
 /* Read from file
 // Asynchronous read
@@ -21,9 +21,10 @@ var data = fs.readFileSync('grocery', String).toString();
 
 function generateMdSource (data, keyPhrases) {
     var res = data.split('\n');
-    res[0] = "#  ".concat(res[0].trim().frstCap());
+    res[0] = frstCap("#  ".concat(res[0].trim()));
 
     var tmp = [];
+    console.log(typeof(keyPhrases));
     for (var i = keyPhrases.documents.length - 1; i >= 0; i--) {
         tmp[i] = keyPhrases.documents[i];
     }
@@ -34,9 +35,10 @@ function generateMdSource (data, keyPhrases) {
         if (res[i].length > 0) {
             for (let j = tmp.length - 1; j >= 0; j--) {
                 if (res[i].includes(tmp[j])) {
-                    res[i] = i.toString().concat(".  ", res[i].trim().frstCap()).replace("/".concat(tmp[j], "/g"), " ** ".concat(tmp[j]," ** "));
+                    res[i] = i.toString().concat(".  ", 
+                        frstCap(res[i].trim()).replace("/".concat(tmp[j], "/g"), " ** ".concat(tmp[j]," ** ")));
                 } else{
-                    res[i] = i.toString().concat(".  ", res[i].trim().frstCap());
+                    res[i] = i.toString().concat(".  ", frstCap(res[i].trim()));
                     console.log(i);
                 }
             }

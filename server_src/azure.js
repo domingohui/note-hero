@@ -30,7 +30,7 @@ function getKeyPhrases (rawInput, json) {
     }
 
     request(options, function (error, response, body) {
-        return Md_Gen.addMdTo( rawInput, body);
+        return Md_Gen.addMdTo( rawInput, JSON.parse(body));
     });
 }
 
