@@ -29,7 +29,7 @@ function generateMdSource (data, keyPhrases) {
     for (var i = keyPhrases.documents.length - 1; i >= 0; i--) {
         tmp[i] = keyPhrases.documents[i];
     }
-    tmp = [].concat.apply([], tmp);
+    tmp = [].concat([], tmp);
     keyPhrs = flatten(tmp);
 
     for (let i = 1; i < res.length; i++) {
