@@ -2,31 +2,34 @@
 
 var request = require('request');
 
+module.exports.getKeyPhrases = getKeyPhrasesWrapper;
+
 function getKeyPhrasesWrapper (rawInput) {
     return getKeyPhrases (toJson (rawInput));
 }
 
 function getKeyPhrases (json) {
     // Azure portal URL.
-    const base_url = 'https://westus.api.cognitive.microsoft.com/';
-
-    const headers = {
-        'Content-Type':'application/json', 
-        'Accept': 'application/json',
-        'Ocp-Apim-Subscription-Key':'db9b5fd1cb7c493789373ebf27c0524d'};
-
     const num_languages = 1;
 
-    const batch_keyphrase_url = base_url + 'text/analytics/v2.0/keyPhrases';
+    const batch_keyphrase_url = "https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases";
+
+    let data = JSON.stringify (json);
 
     var options = {
         'url': batch_keyphrase_url,
         'method': 'POST',
-        'headers': headers,
-        'data': {"documents": JSON.stringify(json)}
+        'headers': {
+            "Content-Type":"application/json",
+            "Ocp-Apim-Subscription-Key":"db9b5fd1cb7c493789373ebf27c0524d",
+            "Accept":"application/json"
+        },
+        'body': data ,
+        'dataType': 'text'
     }
-    
-    console.log(JSON.stringify(json));
+
+    console.log(data);
+
     request(options, function (error, response, body) {
         console.log(body);
     })
@@ -71,7 +74,10 @@ function toJson (rawInput) {
         });
     });
 
+    console.log("JSON raw input");
+    console.log(json);
+
     return json;
 }
 
-getKeyPhrasesWrapper("Hello. My name is Domingo.\nHow are you?");
+//getKeyPhrasesWrapper("Hello.\n My name is Domingo.\nHow are you?\nPlease work at a hackathon.");

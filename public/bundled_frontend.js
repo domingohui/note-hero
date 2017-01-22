@@ -201,9 +201,6 @@
 	            return React.createElement(
 	                'div',
 	                { className: 'row' },
-	                '//            ',
-	                this.props.children,
-	                React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
 	                React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
 	                React.createElement(Markdown, { source: this.state.markdownSource }),
 	                React.createElement(Source, { source: this.state.markdownSource, didEditSource: this.didSourceChange })

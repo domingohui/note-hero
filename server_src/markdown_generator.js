@@ -1,7 +1,10 @@
 'use strict';
 
+const Azure = require('./azure');
+
 function getMdSourceCode (input ) {
-    return '## Markdown generated source code ' + input;
+    let parsedResult = Azure.getKeyPhrases(input);
+    return parsedResult;
 };
 
 exports.getMdSourceCode = getMdSourceCode;
