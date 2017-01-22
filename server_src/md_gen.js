@@ -25,7 +25,6 @@ function generateMdSource (data, keyPhrases) {
     res[0] = frstCap("#  ".concat(res[0].trim()));
 
     var tmp = [];
-    console.log(typeof(keyPhrases));
     for (var i = keyPhrases.documents.length - 1; i >= 0; i--) {
         tmp[i] = keyPhrases.documents[i];
     }
@@ -40,12 +39,12 @@ function generateMdSource (data, keyPhrases) {
                         frstCap(res[i].trim()).replace("/".concat(tmp[j], "/g"), " ** ".concat(tmp[j]," ** ")));
                 } else{
                     res[i] = i.toString().concat(".  ", frstCap(res[i].trim()));
-                    console.log(i);
+                    console.log("IN for loop :" + i);
                 }
             }
         }
     }
-    return res.join("\n");
+    return res.join('\n');
 }
 
 //console.log(generateMdSource("This is me.\nHello world!");

@@ -55,15 +55,7 @@ class Input extends React.Component {
             height: "500px"
         };
         return (           
-            <div className="row">
-            <form className="col s12">
-                <div className="row">
-            <div className="input-field col s12">
             <textarea id="textarea1" className="materialize-textarea"></textarea>
-            </div>
-            </div>
-            </form>
-            </div>
             //            <textarea 
             //            className="col-sm-6 well" style={divStyle} defaultValue={this.state.value} id="pad"  
             //            onChange={ this.handleTyping } >

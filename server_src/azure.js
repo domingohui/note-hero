@@ -1,15 +1,18 @@
 'use strict';
 
-var request = require('request');
+const request = require('request');
 const Md_Gen = require('./md_gen');
+
+var rawInput = '';
 
 module.exports.getMdSourceWrapper = getMdSourceWrapper;
 
-function getMdSourceWrapper  (rawInput) {
-    return getKeyPhrases (rawInput, toJson (rawInput));
+function getMdSourceWrapper  (userRawInput) {
+    rawInput = userRawInput;
+    getKeyPhrases (toJson (rawInput), callback);
 }
 
-function getKeyPhrases (rawInput, json) {
+function getKeyPhrases (json) {
     // Azure portal URL.
     const num_languages = 1;
 
@@ -29,9 +32,13 @@ function getKeyPhrases (rawInput, json) {
         'dataType': 'text'
     }
 
-    request(options, function (error, response, body) {
-        return Md_Gen.addMdTo( rawInput, JSON.parse(body));
-    });
+    request(options, didMdSourceReturn);
+}
+
+function didMdSourceReturn ( error, response, body ) {
+    // Callback when keyphrases returned from API
+    result = Md_Gen.addMdTo( rawInput, JSON.parse(body));
+    console.log(result);
 }
 
 
