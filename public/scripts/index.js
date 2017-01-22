@@ -5,11 +5,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const Markdown = require('react-markdown');
-
 var Markdown = require('react-markdown');
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
-
 import Style from '../assets/css/styles.css';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
@@ -125,15 +121,8 @@ class Container extends React.Component {
 
     render() {
         return (
-            
-            
             <div className="row">
-
-//            {this.props.children}
-            <Input updateRawInput={this.rawInputDidUpdate}/>
-
             <Input updateRawInput={this.rawInputDidUpdate} />
-
             <Markdown source={this.state.markdownSource} />
             <Source source={this.state.markdownSource} didEditSource={this.didSourceChange} />
             </div>
