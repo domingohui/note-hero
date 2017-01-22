@@ -16,7 +16,23 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
-            { test: /\.json$/, loader: "json-loader" }
+            { 
+                test: /\.css$/, 
+                loader: "style-loader!css-loader" 
+            },
+            { 
+                test: /\.jpg$/, 
+                loader: "file-loader!./public/generated_img/file.jpg" 
+            },
+
+            { 
+                test: /\.json$/, 
+                loader: "json-loader" 
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=public/generated_fonts/[name].[ext]'
+            }
         ]
     }
 };
