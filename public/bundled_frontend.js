@@ -83,7 +83,7 @@
 	        var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
 
 	        _this.updateRawInput = props.updateRawInput;
-	        _this.state = { value: "##MD EDITOR. Type here " };
+	        _this.state = { value: "## MD EDITOR. Type here " };
 	        _this.sentData = false;
 	        _this.stoppedTypingFor = 0; // milliseconds
 	        setInterval(function () {
@@ -184,6 +184,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            console.log(this.state.markdownSource);
 	            return React.createElement(
 	                'div',
 	                { className: 'row' },

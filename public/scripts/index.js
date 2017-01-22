@@ -4,7 +4,7 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Markdown = require('react-markdown');
+var Markdown = require('react-markdown');
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Style from '../assets/css/styles.css';
 const $ = require('jquery');
@@ -15,7 +15,7 @@ class Input extends React.Component {
     constructor (props) {
         super(props);
         this.updateRawInput = props.updateRawInput;
-        this.state = {value:"##MD EDITOR. Type here "};
+        this.state = {value:"## MD EDITOR. Type here "};
         this.sentData = false;
         this.stoppedTypingFor = 0; // milliseconds
         setInterval ( 
@@ -98,6 +98,7 @@ class Container extends React.Component {
     }
 
     render() {
+        console.log(this.state.markdownSource);
         return (
             <div className="row">
             <Input updateRawInput={this.rawInputDidUpdate} />
