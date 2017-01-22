@@ -1,4 +1,4 @@
-const MarkDownParser = require('./server_src/markdown_generator');
+const MarkDownParser = require('./server_src/azure');
 const express = require('express');
 const app = express();
 const body_parser = require('body-parser');
@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
 router.post ('/parse/', function (req, res) {
     console.log( 'parse/ POST request:' );
     console.log( req.body);
-    let parsedTextInMD = MarkDownParser.getMdSourceCode (req.body.data);
+    let parsedTextInMD = MarkDownParser.getMdSourceWrapper (req.body.data);
     let jsonOutput = {data: parsedTextInMD};
     console.log( 'parse/ Response:' );
     console.log( jsonOutput );

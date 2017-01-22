@@ -23,6 +23,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-markdown": "^2.4.4",
+    "react-materialize": "^0.17.7",
     "style-loader": "^0.13.1",
     "webpack": "1.14.0"
   }

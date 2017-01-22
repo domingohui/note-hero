@@ -4,10 +4,10 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-
-var Markdown = require('react-markdown');
-import Style from '../assets/css/styles.css';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+const Markdown = require('react-markdown');
+//import Style from '../assets/css/styles.css';
+import { Button, Card, Row, Col } from 'react-materialize';
 
 const $ = require('jquery');
 
@@ -17,7 +17,7 @@ class Input extends React.Component {
     constructor(props) {
         super(props);
         this.updateRawInput = props.updateRawInput;
-        this.state = { value: "## MD EDITOR. Type here " };
+        this.state = { value: "MD EDITOR. Type here " };
         this.sentData = false;
         this.stoppedTypingFor = 0; // milliseconds
         setInterval(() => {
@@ -48,10 +48,31 @@ class Input extends React.Component {
     }
 
     render() {
-        return React.createElement('textarea', {
-
-            className: 'col-sm-6 well', defaultValue: this.state.value, id: 'pad',
-            onChange: this.handleTyping });
+        const divStyle = {
+            height: "500px"
+        };
+        return React.createElement(
+            'div',
+            { className: 'row' },
+            React.createElement(
+                'form',
+                { className: 'col s12' },
+                React.createElement(
+                    'div',
+                    { className: 'row' },
+                    React.createElement(
+                        'div',
+                        { className: 'input-field col s12' },
+                        React.createElement('textarea', { id: 'textarea1', className: 'materialize-textarea' })
+                    )
+                )
+            )
+        )
+        //            <textarea 
+        //            className="col-sm-6 well" style={divStyle} defaultValue={this.state.value} id="pad"  
+        //            onChange={ this.handleTyping } >
+        //            </textarea>
+        ;
     }
 }
 
@@ -62,7 +83,11 @@ class Source extends React.Component {
     }
 
     render() {
-        return React.createElement('textarea', { value: this.props.source, onChange: this.didEditSource.bind(this) });
+        return React.createElement(
+            'div',
+            null,
+            React.createElement('textarea', { value: this.props.source, onChange: this.didEditSource.bind(this) })
+        );
     }
 }
 
@@ -100,9 +125,14 @@ class Container extends React.Component {
     }
 
     render() {
+        const styleTrials = {
+            marginTop: "100px"
+        };
         return React.createElement(
             'div',
-            { className: 'row' },
+            { className: 'row', style: styleTrials },
+            '//            ',
+            this.props.children,
             React.createElement(Input, { updateRawInput: this.rawInputDidUpdate }),
             React.createElement(Markdown, { source: this.state.markdownSource }),
             React.createElement(Source, { source: this.state.markdownSource, didEditSource: this.didSourceChange })

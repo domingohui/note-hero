@@ -1,10 +1,11 @@
 'use strict';
 
 var request = require('request');
+const Md_Gen = require('./md_gen');
 
-module.exports.getKeyPhrases = getKeyPhrasesWrapper;
+module.exports.getMdSourceWrapper = getMdSourceWrapper;
 
-function getKeyPhrasesWrapper (rawInput) {
+function getMdSourceWrapper  (rawInput) {
     return getKeyPhrases (rawInput, toJson (rawInput));
 }
 
@@ -28,16 +29,9 @@ function getKeyPhrases (rawInput, json) {
         'dataType': 'text'
     }
 
-<<<<<<< HEAD
     request(options, function (error, response, body) {
-        addMdTo( rawInput, json);
-=======
-    console.log(data);
-
-    request(options, function (error, response, body) {
->>>>>>> master
-        console.log(body);
-    })
+        return Md_Gen.addMdTo( rawInput, body);
+    });
 }
 
 
