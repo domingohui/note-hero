@@ -5,6 +5,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Markdown = require('react-markdown');
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+import Style from '../assets/css/styles.css';
 const $ = require('jquery');
 
 const TYPING_TIME_OUT = 500;
