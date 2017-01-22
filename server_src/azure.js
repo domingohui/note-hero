@@ -28,8 +28,14 @@ function getKeyPhrases (rawInput, json) {
         'dataType': 'text'
     }
 
+<<<<<<< HEAD
     request(options, function (error, response, body) {
         addMdTo( rawInput, json);
+=======
+    console.log(data);
+
+    request(options, function (error, response, body) {
+>>>>>>> master
         console.log(body);
     })
 }

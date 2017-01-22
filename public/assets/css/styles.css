@@ -1,0 +1,17 @@
+.col-sm-6 well {
+   
+   
+    background-color: blue;
+    height: 500px;
+}
+
+#pad {
+    color: blue;
+    opacity: 0.5;
+    width: 500px;
+    height: 500px;
+}
+
+html{
+    background-image: url('../img/background.jpg');
+}

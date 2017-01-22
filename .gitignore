@@ -1,3 +1,4 @@
+.DS_Store
 # Logs
 logs
 *.log
@@ -48,6 +49,10 @@ jspm_packages
 
 # Yarn
 yarn.lock
-lib/
+# Vim
+*.swp
+
+# Webpack
 public/generated_fonts
+public/generated_img
 public/generated_libs
