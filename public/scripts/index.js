@@ -5,8 +5,9 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Markdown = require('react-markdown');
-import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 import Style from '../assets/css/styles.css';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
+
 const $ = require('jquery');
 
 const TYPING_TIME_OUT = 500;
@@ -49,10 +50,16 @@ class Input extends React.Component {
     }
 
     render () {
-        return (
-            <textarea className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
+        return (           
+            
+            
+            <textarea 
+            
+            
+            className="col-sm-6 well" defaultValue={this.state.value} id="pad" 
             onChange={ this.handleTyping } >
             </textarea>
+          
         );
     }
 }
@@ -108,7 +115,10 @@ class Container extends React.Component {
 
     render() {
         return (
+            
+            
             <div className="row">
+//            {this.props.children}
             <Input updateRawInput={this.rawInputDidUpdate}/>
             <Markdown source={this.state.markdownSource} />
             <Source source={this.state.markdownSource} />
