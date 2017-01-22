@@ -4,7 +4,7 @@
   "repository": "https://github.com/domingohui/note-hero",
   "main": "server.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel public/scripts -d public/lib",
+    "build": "./node_modules/.bin/babel public/scripts -d public/generated_libs",
     "pack": "./node_modules/.bin/webpack --config webpack.config.js"
   },
   "dependencies": {

@@ -58,6 +58,8 @@ class Input extends React.Component {
 class Source extends React.Component {
     constructor (props) {
         super(props);
+        console.log ("Source code: ");
+        console.log(props.source);
         this.state = {
             source: props.source
         }
